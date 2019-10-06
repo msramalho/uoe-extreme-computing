@@ -1,5 +1,5 @@
 # Task 1
-### (10+15 marks) 
+### (10+15 marks)
 Calculate the average maximum and minimum runtime duration for all titles per movie genre.
 
 Note that a title can have more than one genre, thus it should be considered for all of them. 

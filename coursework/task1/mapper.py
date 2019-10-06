@@ -8,8 +8,8 @@ OUTPUT_FORMAT = "%s|%s"
 SKIP_VAL = "\\N"
 
 
-def map_function(title):
-    fields = title.strip().split(DATA_DELIMITER)
+def map_function(line):
+    fields = line.strip().split(DATA_DELIMITER)
     runtime, genres = fields[7], fields[8]
     if genres != SKIP_VAL and runtime != SKIP_VAL:
         # runtime = int(runtime) # no point in converting to integer
