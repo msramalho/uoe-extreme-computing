@@ -25,8 +25,7 @@ def map_ratings(fields):
     # it should be filtered on >=50k votes and rating >=7.5
     # the output starts with "R" so that the reducer can differentiate
     rating, votes = float(fields[1]), int(fields[2])
-    if rating >= 7.5 and votes >= 50000:
-        return fields[0], "R"
+    if rating >= 7.5 and votes >= 50000: return fields[0], "R"
     return False, None
 
 
@@ -38,5 +37,5 @@ def map_function(line):
 
 for line in sys.stdin:
     for key, value in map_function(line):
-        if key != False: # mappers will return False if invalid
+        if key != False:  # mappers will return False if invalid
             print(OUTPUT_FORMAT % (key, value))

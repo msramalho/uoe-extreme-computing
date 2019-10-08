@@ -9,11 +9,10 @@ SKIP_VAL = "\\N"
 
 
 def map_function(line):
-    fields = line.strip().split(DATA_DELIMITER)
-    runtime, genres = fields[7], fields[8]
-    if genres != SKIP_VAL and runtime != SKIP_VAL:
-        # runtime = int(runtime) # no point in converting to integer
-        for g in genres.strip().split(LIST_DELIMITER):
+    fields = line.strip().split(DATA_DELIMITER)         # separate input line
+    runtime, genres = fields[7], fields[8]              # get runtime and list of genres
+    if genres != SKIP_VAL and runtime != SKIP_VAL:      # if both exist
+        for g in genres.strip().split(LIST_DELIMITER):  # iterate and yield (k,v) = (genre, runtime)
             yield g, runtime
 
 
