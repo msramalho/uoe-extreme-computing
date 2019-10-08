@@ -1,24 +1,51 @@
-TASK=task2
-INPUT1=/data/small/imdb/title.basics.tsv
-INPUT2=/data/small/imdb/title.ratings.tsv
-OUTPUT_DIR=/user/$USER/data/output/$TASK/
+TASK=task3
 
-hdfs dfs -rm -r $OUTPUT_DIR
+# Job 1/2
+
+INPUT1_1=/data/small/imdb/title.basics.tsv
+INPUT1_2=/data/small/imdb/title.ratings.tsv
+OUTPUT_1=/user/$USER/data/output/$TASK\_job1/
+
+hdfs dfs -rm -r $OUTPUT_1
 
 hadoop jar /opt/hadoop/hadoop-2.9.2/share/hadoop/tools/lib/hadoop-streaming-2.9.2.jar \
--D mapred.job.name="Miguel's task 2 - s2004624" \
+-D mapred.job.name="Miguel's task 3 job 1/2- s2004624" \
 -D stream.map.output.field.separator="|" \
 -D stream.reduce.input.field.separator="|" \
--files ./mapper.py,./reducer.py \
--input $INPUT1 \
--input $INPUT2 \
--output $OUTPUT_DIR \
--mapper mapper.py \
--reducer reducer.py
+-files ./mapper_1.py,./reducer_1.py \
+-input $INPUT1_1 \
+-input $INPUT1_2 \
+-output $OUTPUT_1 \
+-mapper mapper_1.py \
+-reducer reducer_1.py
 
+echo "DONE Job 1/2, here is the output:"
 
-echo "DONE, here is the output:"
+hdfs dfs -cat $OUTPUT_1/*
 
-hdfs dfs -cat $OUTPUT_DIR/*
+echo "-----DONE Job 1/2-----"
 
-echo "-----DONE-----"
+sleep 5 
+
+# Job 2/2
+
+OUTPUT_2=/user/$USER/data/output/$TASK/
+hdfs dfs -rm -r $OUTPUT_2
+
+hadoop jar /opt/hadoop/hadoop-2.9.2/share/hadoop/tools/lib/hadoop-streaming-2.9.2.jar \
+-D mapred.job.name="Miguel's task 3 job 2/2- s2004624" \
+-D stream.map.output.field.separator="|" \
+-D stream.reduce.input.field.separator="|" \
+-D stream.num.map.output.key.fields=2 \
+-D mapred.reduce.tasks=1 \
+-files ./mapper_2.py,./reducer_2.py \
+-input $OUTPUT_1 \
+-output $OUTPUT_2 \
+-mapper mapper_2.py \
+-reducer reducer_2.py
+
+echo "DONE Job 2/2, here is the output:"
+
+hdfs dfs -cat $OUTPUT_2/*
+
+echo "-----DONE Job 2/2-----"
