@@ -19,7 +19,7 @@ class Movie:
             self.filter2 = True
         else:                       # basics.tsv mapper
             self.filter1 = True
-            self.title = value[1:]
+            self.title = value[1:]  # Decode the "B<movieTitle>"
 
     def _print(self):
         # print title if valid and all filters have been checked
