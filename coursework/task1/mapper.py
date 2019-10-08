@@ -1,6 +1,7 @@
 #!/usr/bin/python2.7
 
 import sys
+from collections import namedtuple
 
 DATA_DELIMITER = '\t'
 LIST_DELIMITER = ","
@@ -8,12 +9,20 @@ OUTPUT_FORMAT = "%s|%s"
 SKIP_VAL = "\\N"
 
 
+def validate(named_tuple, properties):
+    # for each of the provided properties, guarantee that none is SKIP_VAL
+    return not any(getattr(named_tuple, p) == SKIP_VAL for p in properties)
+
+
+Movie = namedtuple('Movie', 'id type title original adult release end duration genres')
+
+
 def map_function(line):
-    fields = line.strip().split(DATA_DELIMITER)         # separate input line
-    runtime, genres = fields[7], fields[8]              # get runtime and list of genres
-    if genres != SKIP_VAL and runtime != SKIP_VAL:      # if both exist
-        for g in genres.strip().split(LIST_DELIMITER):  # iterate and yield (k,v) = (genre, runtime)
-            yield g, runtime
+    fields = line.strip().split(DATA_DELIMITER)             # separate input line
+    m = Movie(*fields)                                      # cast to namedtuple
+    if validate(m, ["duration", "genres"]):                 # if both exist
+        for g in m.genres.strip().split(LIST_DELIMITER):    # iterate and yield (k,v) = (genre, runtime)
+            yield g, m.duration
 
 
 for line in sys.stdin:
