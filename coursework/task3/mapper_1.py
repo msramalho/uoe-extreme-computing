@@ -8,10 +8,9 @@ OUTPUT_FORMAT = "%s|%s"
 SKIP_VAL = "\\N"
 
 
-# Global methods and utils
-def validate(movie, properties):
+def validate(named_tuple, properties):
     # for each of the provided properties, guarantee that none is SKIP_VAL
-    return not any(getattr(movie, p) == SKIP_VAL for p in properties)
+    return not any(getattr(named_tuple, p) == SKIP_VAL for p in properties)
 
 
 def _print(output):
@@ -20,9 +19,9 @@ def _print(output):
 
 
 # basics.tsv related code
+Movie = namedtuple('Movie', 'id type title original adult release end duration genres')
 def map_basics(fields):
-    Movie = namedtuple('Movie', 'id type title original adult release end duration genres')
-    # basics.tsv input should send tconst|decade|genres|title
+    # basics.tsv input should send id|decade|genres|title
     # could emit one tuple per genre, but that would be a waste of resources
     # since that is only needed for the next MapReduce Job
     m = Movie(*fields)
