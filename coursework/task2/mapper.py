@@ -32,10 +32,10 @@ def map_ratings(fields):
 def map_function(line):
     # split line and return according to input type (basics, ratings)
     fields = line.strip().split(DATA_DELIMITER)
-    yield map_basics(fields) if len(fields) == 9 else map_ratings(fields)
+    return map_basics(fields) if len(fields) == 9 else map_ratings(fields)
 
 
 for line in sys.stdin:
-    for key, value in map_function(line):
-        if key != False:  # mappers will return False if invalid
-            print(OUTPUT_FORMAT % (key, value))
+    key, value = map_function(line)
+    if key != False:  # mappers will return False if invalid
+        print(OUTPUT_FORMAT % (key, value))
