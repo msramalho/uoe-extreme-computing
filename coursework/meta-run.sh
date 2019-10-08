@@ -3,16 +3,20 @@ TASK=task$1
 USER=s2004624
 HOST=$USER@student.ssh.inf.ed.ac.uk
 
-for i in "mapper.py" "reducer.py" "run.sh"
+for i in "mapper.py" "mapper_1.py" "mapper_2.py" "reducer.py" "reducer_1.py" "reducer_2.py" "run.sh"
 do
    FILE=$TASK/$i 
-   echo "$FILE"
-   # convert CRLF to LF
-   dos2unix $FILE
-   # send file
-   sshpass -f ".pass"  scp -r $FILE $HOST:/afs/inf.ed.ac.uk/user/s20/$USER/assignment/$FILE
-   # convert LF back to CRLF
-   unix2dos $FILE
+   if [ ! -f $FILE ]; then
+      echo "$FILE not found."
+   else
+      echo "sending $FILE..."
+      # convert CRLF to LF
+      dos2unix $FILE
+      # send file
+      sshpass -f ".pass"  scp -r $FILE $HOST:/afs/inf.ed.ac.uk/user/s20/$USER/assignment/$FILE
+      # convert LF back to CRLF
+      unix2dos $FILE
+   fi
 done
 
 # ssh login and execute commands
