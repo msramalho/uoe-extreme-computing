@@ -3,7 +3,6 @@
 import sys
 
 DATA_DELIMITER = '\t'
-OUTPUT_FORMAT = "%s|%s"
 SKIP_VAL = "\\N"
 
 
@@ -38,4 +37,4 @@ def map_function(line):
 for line in sys.stdin:
     key, value = map_function(line)
     if key != False:  # mappers will return False if invalid
-        print(OUTPUT_FORMAT % (key, value))
+        print("%s|%s" % (key, value))

@@ -4,7 +4,6 @@ import sys
 
 # global variables
 # [avg runtime:float|max runtime:int|min runtime:int|genre:str]
-OUTPUT_FORMAT = "%.2f|%d|%d|%s"
 MAX_DURATION = 2**32  # naturally, a smaller number could be used
 
 
@@ -31,7 +30,7 @@ class Statistics:
     def _print(self):
         # print the statistics if this is a valid genre
         if self.genre != None:
-            print(OUTPUT_FORMAT % (self.average(), self.max, self.min, self.genre))
+            print("%.2f|%d|%d|%s" % (self.average(), self.max, self.min, self.genre))
 
 
 stats = Statistics()                                # create the O(1) space management object

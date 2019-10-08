@@ -2,10 +2,6 @@
 
 import sys
 
-# global variables
-OUTPUT_FORMAT = "%s"  # [title:str]
-
-
 class Movie:
     def __init__(self, id=None, filter1=False, filter2=False, title=None):
         self.id = id

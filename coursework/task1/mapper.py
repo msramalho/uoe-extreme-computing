@@ -5,7 +5,6 @@ from collections import namedtuple
 
 DATA_DELIMITER = '\t'
 LIST_DELIMITER = ","
-OUTPUT_FORMAT = "%s|%s"
 SKIP_VAL = "\\N"
 
 
@@ -27,4 +26,4 @@ def map_function(line):
 
 for line in sys.stdin:
     for key, value in map_function(line):
-        print(OUTPUT_FORMAT % (key, value))
+        print("%s|%s" % (key, value))
