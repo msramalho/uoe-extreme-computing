@@ -3,9 +3,6 @@
 import sys
 from collections import namedtuple
 
-# global variables
-OUTPUT_FORMAT = "%s"  # [title:str]
-
 
 class Movie:
     def __init__(self, id=None, title=None, genres=None, decade=None, rating=None):
@@ -29,14 +26,15 @@ class Movie:
         if self.rating and self.decade:
             # output var is used to avoid repeating the format operation unnecessarily
             # the movie id is not passed as it would be irrelevant info
-            output = "%s|%%s|%s|%s" % (self.decade, self.title, self.rating) # notice the %%
+            output = "%s|%%s|%s|%s" % (self.decade, self.title, self.rating)  # notice the %%
             for genre in self.genres.split(","):
                 print(output % genre)
+
 
 m = Movie()
 for line in sys.stdin:
     fields = line.strip().split("|")
-    if fields[0] == m.id: # same key
+    if fields[0] == m.id:  # same key
         m.update(fields)
     else:
         m._print()

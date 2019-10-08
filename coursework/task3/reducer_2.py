@@ -3,6 +3,7 @@
 import sys
 from collections import namedtuple
 
+
 class Movie:
     def __init__(self, decade=None, genre=None, title=None, rating=-1):
         self.decade = decade

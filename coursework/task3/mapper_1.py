@@ -4,7 +4,6 @@ import sys
 from collections import namedtuple
 
 DATA_DELIMITER = '\t'
-OUTPUT_FORMAT = "%s|%s"
 SKIP_VAL = "\\N"
 
 
@@ -20,6 +19,8 @@ def _print(output):
 
 # basics.tsv related code
 Movie = namedtuple('Movie', 'id type title original adult release end duration genres')
+
+
 def map_basics(fields):
     # basics.tsv input should send id|decade|genres|title
     # could emit one tuple per genre, but that would be a waste of resources
