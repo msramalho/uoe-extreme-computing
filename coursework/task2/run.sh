@@ -6,14 +6,14 @@ OUTPUT_DIR=/user/$USER/data/output/$TASK/
 hdfs dfs -rm -r $OUTPUT_DIR
 
 hadoop jar /opt/hadoop/hadoop-2.9.2/share/hadoop/tools/lib/hadoop-streaming-2.9.2.jar \
--D mapreduce.job.output.key.comparator.class=org.apache.hadoop.mapreduce.lib.partition.KeyFieldBasedComparator \
--D mapreduce.map.output.key.field.separator="|" \
+-D mapred.job.name="Miguel's task 2 - s2004624" \
+-D stream.map.output.field.separator="|" \
+-D stream.reduce.input.field.separator="|" \
+-files ./mapper.py,./reducer.py \
 -input $INPUT1 \
 -input $INPUT2 \
 -output $OUTPUT_DIR \
--file ./mapper.py \
 -mapper mapper.py \
--file ./reducer.py \
 -reducer reducer.py
 
 
