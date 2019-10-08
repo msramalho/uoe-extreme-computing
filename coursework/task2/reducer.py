@@ -29,12 +29,7 @@ class Movie:
 
 movie = Movie()
 for line in sys.stdin:
-    # print(line)
-    # continue
     id, value = line.strip().split("|", 1)
-    print(id + "|" + value)
-    continue
-
     if movie.id == id:  # same key
         movie.update_filter(value)
     else:
