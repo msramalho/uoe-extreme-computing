@@ -11,11 +11,11 @@ class Movie:
 
     def update_filter(self, value):
         # update the filter according to the received key
-        if value == "R":            # ratings.tsv mapper
+        if value == "":             # ratings.tsv mapper
             self.filter2 = True
         else:                       # basics.tsv mapper
             self.filter1 = True
-            self.title = value[1:]  # Decode the "B<movieTitle>"
+            self.title = value      # Recover the movieTitle
 
     def _print(self):
         # print title if valid and all filters have been checked

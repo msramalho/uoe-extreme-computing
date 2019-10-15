@@ -1,27 +1,30 @@
 #!/usr/bin/python2.7
 
+"""
+Input:  title.basics.tsv    AND title.ratings.tsv
+Output: id|B[Title]         AND id|R
+"""
+
 import sys
 
 DATA_DELIMITER = '\t'
 SKIP_VAL = "\\N"
 
 
-def _print(key, value):
-    if key != False:  # mappers will return False if invalid
-        print("%s|%s" % (key, value))
+def _print(output):
+    # print if output is valid
+    if output != None: print(output)
 
 
 def map_basics(fields):
-    # in case this is a line from the basics.tsv file
+    # in case this is a line from the title.basics.tsv file
     # it should be filtered on release year
     # the output starts with "B" so that the reducer can differentiate
     title_type, title, release = fields[1], fields[2], fields[5]
-    # if order is not random :-)
     if title_type == "movie" and release != SKIP_VAL and title != SKIP_VAL:
         release = int(release)
         if 1990 <= release and release <= 2018:
-            return fields[0], "B" + title
-    return False, None
+            return "%s|%s" % (fields[0], title)
 
 
 def map_ratings(fields):
@@ -29,8 +32,8 @@ def map_ratings(fields):
     # it should be filtered on >=50k votes and rating >=7.5
     # the output starts with "R" so that the reducer can differentiate
     rating, votes = float(fields[1]), int(fields[2])
-    if rating >= 7.5 and votes >= 50000: return fields[0], "R"
-    return False, None
+    if rating >= 7.5 and votes >= 50000:
+        return "%s|" % fields[0]
 
 
 def map_function(line):
@@ -40,4 +43,4 @@ def map_function(line):
 
 
 for line in sys.stdin:
-    _print(*map_function(line))
+    _print(map_function(line))
