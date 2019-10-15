@@ -12,13 +12,16 @@ class Movie:
         self.rating = rating
 
     def update(self, fields):
-        # assert self.is_same(fields), "must have same decade,genre tuple"
         self.decade = fields[0]
         self.genre = fields[1]
         new_rating = float(fields[3])
         if self.rating < new_rating:    # if the new film has higher rating
             self.rating = new_rating    # update the max rating
             self.title = fields[2]      # and the corresponding title
+
+        # NOTE: there is no need to check for rating == new_rating
+        # since this reducer receives the movie names in lexicographical order
+        # and so this will always yield the first movie alphabetically
 
     def is_same(self, fields):
         return self.decade == fields[0] and self.genre == fields[1]
