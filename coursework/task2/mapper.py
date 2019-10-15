@@ -6,6 +6,11 @@ DATA_DELIMITER = '\t'
 SKIP_VAL = "\\N"
 
 
+def _print(key, value):
+    if key != False:  # mappers will return False if invalid
+        print("%s|%s" % (key, value))
+
+
 def map_basics(fields):
     # in case this is a line from the basics.tsv file
     # it should be filtered on release year
@@ -35,6 +40,4 @@ def map_function(line):
 
 
 for line in sys.stdin:
-    key, value = map_function(line)
-    if key != False:  # mappers will return False if invalid
-        print("%s|%s" % (key, value))
+    _print(*map_function(line))
