@@ -1,5 +1,15 @@
 #!/usr/bin/python2.7
 
+"""
+Input (sorted on first 2 columns):
+movieId|A|votes             # from name.basics.tsv
+movieId|B|personId|Name     # from name.basics.tsv
+movieId|B|personId          # from title.crew.tsv
+
+Output:
+votes|Name                  # for writers AND knownFor in the same movieId
+"""
+
 import sys
 from collections import namedtuple
 
@@ -13,7 +23,7 @@ class Movie:
         self.name = name
 
     def update(self, fields):
-        if len(fields) == 3:  # crew file
+        if fields[-1] == "":  # crew file
             self.writer = fields[2]
         else:  # names file len = 4
             self.known_for = fields[2]
@@ -27,13 +37,13 @@ class Movie:
 
 m = Movie()
 for line in sys.stdin:
+    # print("-----------" + line.strip())
     fields = line.strip().split("|")
-    if fields[0] == m.id:  # same movie
+    if fields[0] == m.id:   # same movie
         m.update(fields)
-        # TODO: wait for reply on non-duplicates, otherwise print should be controlled with is_printed
         m._print()
     elif fields[1] == "A":  # skip if A is not seen before changing key
-        m._print()
+        m._print()          # print the previous TODO: is this necessary?
         m = Movie(id=fields[0], votes=fields[2])
 else:  # finally, print the last movie
     m._print()
