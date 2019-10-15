@@ -9,7 +9,7 @@ SKIP_VAL = "\\N"
 
 def validate(named_tuple, properties):
     # for each of the provided properties, guarantee that none is SKIP_VAL
-    return not any(getattr(named_tuple, p) == SKIP_VAL for p in properties)
+    return all(getattr(named_tuple, p) != SKIP_VAL for p in properties)
 
 
 def _print(output):
