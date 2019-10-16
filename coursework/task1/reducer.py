@@ -1,48 +1,35 @@
 #!/usr/bin/python2.7
 
 import sys
+sys.path.append('./')
+from statistics import Statistics
+# NOTE: combiner and mapper could have the same format, 
+# but that would imply more data sent from raw map output over the network
+# as such mappers output genre|duration and combiners genre|totalDuration|count|max|min
+# in an effort to reduce network traffic and use combiners at the same time
 
-# global variables
-# [avg runtime:float|max runtime:int|min runtime:int|genre:str]
-MAX_DURATION = 2**32  # naturally, a smaller number could be used
 
-
-# class for logic isolation and readability
-class Statistics:
-    def __init__(self, genre=None, _min=MAX_DURATION, _max=0, _sum=0, count=0):
-        self.genre = genre
-        self.min = _min
-        self.max = _max
-        self.sum = _sum
-        self.count = count
-
-    def update(self, duration):
-        # perform the statistics update for this genre based on the new duration value
-        self.min = min(self.min, duration)
-        self.max = max(self.max, duration)
-        self.sum += duration
-        self.count += 1
-
-    def average(self):
-        # calculate the average for the duration
-        return float(self.sum) / self.count if self.count > 0 else 0
-
+class StatisticsReducer(Statistics):
     def _print(self):
-        # print the statistics if this is a valid genre
+# [avg runtime:float|max runtime:int|min runtime:int|genre:str]
         if self.genre != None:
             print("%.2f|%d|%d|%s" % (self.average(), self.max, self.min, self.genre))
 
-
-stats = Statistics()                                # create the O(1) space management object
+stats = StatisticsReducer()                         # create the O(1) space management object
 for line in sys.stdin:
-    genre, duration = line.strip().split("|", 1)
-    duration = int(duration)                        # no need to test for invalid, as the value comes from mapper/combiner
-
+    # print(line)
+    
+    parts = line.strip().strip("|").split("|")
+    genre = parts[0]
+    from_combiner = len(parts) > 2                  # 2 is from mapper
+    args = [from_combiner] + [int(p) for p in parts[1:]]
+    
+    # update regardless of map or combiner output :)
     if stats.genre == genre:                        # same key
-        stats.update(duration)
+        stats.update(*args)
     else:                                           # new key
         stats._print()                              # print the previous
-        stats = Statistics(genre)
-        stats.update(duration)
+        stats = StatisticsReducer(genre)
+        stats.update(*args)
 else:                                               # finally, print the last key
     stats._print()
