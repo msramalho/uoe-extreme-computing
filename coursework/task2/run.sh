@@ -10,7 +10,6 @@ hadoop jar /opt/hadoop/hadoop-2.9.2/share/hadoop/tools/lib/hadoop-streaming-2.9.
 -D mapred.job.name="Miguel's $TASK - s2004624" \
 -D stream.map.output.field.separator=$SEP \
 -D stream.reduce.input.field.separator=$SEP \
--D mapred.reduce.tasks=10 \
 -D stream.num.map.output.key.fields=1 \
 -files ./mapper.py,./reducer.py,./movie.py,./combiner.py \
 -input $INPUT1 \
