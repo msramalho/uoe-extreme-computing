@@ -23,10 +23,10 @@ done
 # ssh login and execute commands
 sshpass -f ".pass" ssh -tt $HOST /bin/bash << EOF
 	ssh hadoop.exc
-      mkdir ./assignment/code/$TASK
+      mkdir -p ./assignment/code/$TASK
       cd ./assignment/code/$TASK
       chmod a+x *.py run.sh
       sh run.sh
       exit
-   exit
+   exit 5
 EOF
