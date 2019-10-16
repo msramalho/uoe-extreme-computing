@@ -1,9 +1,9 @@
 TASK=task3
 
 # Job 1/2
-
-INPUT1_1=/data/small/imdb/title.basics.tsv
-INPUT1_2=/data/small/imdb/title.ratings.tsv
+INPUT_LOCATION=/data/large
+INPUT1_1=$INPUT_LOCATION/imdb/title.basics.tsv
+INPUT1_2=$INPUT_LOCATION/imdb/title.ratings.tsv
 OUTPUT_1=/user/$USER/data/output/$TASK\_job1/
 
 hdfs dfs -rm -r $OUTPUT_1

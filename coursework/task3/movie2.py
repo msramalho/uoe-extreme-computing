@@ -23,7 +23,7 @@ class Movie:
         return self.decade == fields[0] and self.genre == fields[1]
 
     def _print(self):
-        # print result if video info is present
+        # print result if movie info is present
         if self.title:
             print("%s|%s|%s" % (self.decade, self.genre, self.title))
 
