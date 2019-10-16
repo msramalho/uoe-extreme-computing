@@ -1,3 +1,4 @@
+#!/usr/bin/python2.7
 
 # global variables
 # [avg runtime:float|max runtime:int|min runtime:int|genre:str]
