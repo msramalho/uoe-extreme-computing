@@ -1,6 +1,7 @@
 TASK=task1
-INPUT1=/data/small/imdb/title.basics.tsv
-OUTPUT_DIR=/user/$USER/data/output/$TASK/
+INPUT1=/data/large/imdb/title.basics.tsv
+# INPUT1=/data/small/imdb/title.basics.tsv
+OUTPUT_DIR=/user/$USER/assignment/$TASK
 SEP="|"
 
 hdfs dfs -rm -r $OUTPUT_DIR
@@ -19,6 +20,6 @@ hadoop jar /opt/hadoop/hadoop-2.9.2/share/hadoop/tools/lib/hadoop-streaming-2.9.
 
 echo "DONE, here is the output:"
 
-hdfs dfs -cat $OUTPUT_DIR/*
+hdfs dfs -cat $OUTPUT_DIR/* | sort -t '|' -k4,4
 
 echo "-----DONE-----"
