@@ -3,7 +3,7 @@ TASK=task$1
 USER=s2004624
 HOST=$USER@student.ssh.inf.ed.ac.uk
 
-for i in "mapper.py" "mapper_1.py" "mapper_2.py" "reducer.py" "reducer_1.py" "reducer_2.py" "run.sh" "statistics.py" "combiner.py" "combiner_1.py" "combiner_2.py"
+for i in "mapper.py" "mapper_1.py" "mapper_2.py" "reducer.py" "reducer_1.py" "reducer_2.py" "run.sh" "statistics.py" "movie.py" "combiner.py" "combiner_1.py" "combiner_2.py"
 do
    FILE=$TASK/$i 
    if [ ! -f $FILE ]; then

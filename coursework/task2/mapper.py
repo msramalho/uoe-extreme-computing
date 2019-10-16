@@ -1,8 +1,9 @@
 #!/usr/bin/python2.7
 
 """
-Input:  title.basics.tsv    AND title.ratings.tsv
-Output: id|B[Title]         AND id|R
+Output: 
+    id|A[Title]         title.basics.tsv
+    id|B                title.ratings.tsv
 """
 
 import sys
@@ -24,7 +25,7 @@ def map_basics(fields):
     if title_type == "movie" and release != SKIP_VAL and title != SKIP_VAL:
         release = int(release)
         if 1990 <= release and release <= 2018:
-            return "%s|%s" % (fields[0], title)
+            return "%s|A%s" % (fields[0], title)
 
 
 def map_ratings(fields):
@@ -33,7 +34,7 @@ def map_ratings(fields):
     # the output starts with "R" so that the reducer can differentiate
     rating, votes = float(fields[1]), int(fields[2])
     if rating >= 7.5 and votes >= 50000:
-        return "%s|" % fields[0]
+        return "%s|B" % fields[0]
 
 
 def map_function(line):
