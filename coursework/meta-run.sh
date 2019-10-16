@@ -3,7 +3,7 @@ TASK=task$1
 USER=s2004624
 HOST=$USER@student.ssh.inf.ed.ac.uk
 
-for i in "mapper.py" "mapper_1.py" "mapper_2.py" "reducer.py" "reducer_1.py" "reducer_2.py" "run.sh" "statistics.py" "movie.py"  "movie1.py"  "movie2.py" "combiner.py" "combiner_1.py" "combiner_2.py"
+for i in "mapper.py" "mapper1.py" "mapper2.py" "reducer.py" "reducer1.py" "reducer2.py" "run.sh" "statistics.py" "movie.py"  "movie1.py"  "movie2.py" "combiner.py" "combiner1.py" "combiner2.py"
 do
    FILE=$TASK/$i 
    if [ ! -f $FILE ]; then
@@ -13,7 +13,7 @@ do
       # convert CRLF to LF
       dos2unix $FILE
       # send file
-      sshpass -f ".pass"  scp -r $FILE $HOST:/afs/inf.ed.ac.uk/user/s20/$USER/assignment/$FILE
+      sshpass -f ".pass"  scp -r $FILE $HOST:/afs/inf.ed.ac.uk/user/s20/$USER/assignment/code/$FILE
       # convert LF back to CRLF
       unix2dos $FILE
    fi

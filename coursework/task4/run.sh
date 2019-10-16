@@ -24,13 +24,13 @@ hadoop jar /opt/hadoop/hadoop-2.9.2/share/hadoop/tools/lib/hadoop-streaming-2.9.
 -D num.key.fields.for.partition=3 \
 -D mapred.text.key.partitioner.options=-k1,3 \
 -D mapred.reduce.tasks=10 \
--files ./mapper_1.py,./reducer_1.py \
+-files ./mapper1.py,./reducer1.py \
 -partitioner org.apache.hadoop.mapred.lib.KeyFieldBasedPartitioner \
 -input $INPUT1_1 \
 -input $INPUT1_2 \
 -input $INPUT1_3 \
 -output $OUTPUT_1 \
--mapper mapper_1.py \
+-mapper mapper1.py \
 -reducer cat
 	# -D mapreduce.partition.keypartitioner.options=-k1,1 \
 	# -D mapreduce.partition.keycomparator.options="-k1,1 -k2,2 -k3,3" \
@@ -64,11 +64,11 @@ hadoop jar /opt/hadoop/hadoop-2.9.2/share/hadoop/tools/lib/hadoop-streaming-2.9.
 -D stream.reduce.input.field.separator="|" \
 -D stream.num.map.output.key.fields=2 \
 -D mapred.reduce.tasks=1 \
--files ./mapper_2.py,./reducer_2.py \
+-files ./mapper2.py,./reducer2.py \
 -input $OUTPUT_1 \
 -output $OUTPUT_2 \
--mapper mapper_2.py \
--reducer reducer_2.py
+-mapper mapper2.py \
+-reducer reducer2.py
 
 echo "DONE Job 2/2, here is the output:"
 
