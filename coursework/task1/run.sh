@@ -1,6 +1,7 @@
 TASK=task1
-INPUT1=/data/large/imdb/title.basics.tsv
-# INPUT1=/data/small/imdb/title.basics.tsv
+INPUT_LOCATION=/data/large
+INPUT1=$INPUT_LOCATION/imdb/title.basics.tsv
+# INPUT1=$INPUT_LOCATION/imdb/title.basics.tsv
 OUTPUT_DIR=/user/$USER/assignment/$TASK
 SEP="|"
 
