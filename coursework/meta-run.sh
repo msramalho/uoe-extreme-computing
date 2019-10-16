@@ -1,3 +1,4 @@
+# this file requires that assignment/code/task* exists
 # call as sh meta-run.sh <TASK NO>
 TASK=task$1
 USER=s2004624
@@ -22,7 +23,8 @@ done
 # ssh login and execute commands
 sshpass -f ".pass" ssh -tt $HOST /bin/bash << EOF
 	ssh hadoop.exc
-      cd ./assignment/$TASK
+      mkdir ./assignment/code/$TASK
+      cd ./assignment/code/$TASK
       chmod a+x *.py run.sh
       sh run.sh
       exit
