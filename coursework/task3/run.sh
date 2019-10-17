@@ -22,7 +22,7 @@ hadoop jar /opt/hadoop/hadoop-2.9.2/share/hadoop/tools/lib/hadoop-streaming-2.9.
 
 echo "DONE Job 1/2, here is the output:"
 
-hdfs dfs -cat $OUTPUT_1/*
+hdfs dfs -cat $OUTPUT_1/* | sort -t'|' -k1,3
 
 echo "-----DONE Job 1/2-----"
 

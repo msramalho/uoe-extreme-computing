@@ -18,5 +18,5 @@ class MovieCombiner(Movie):
 m = MovieCombiner()
 for line in sys.stdin:
     m.parse_line(line)
-else:  # finally, print the last movie
+else:
     m._print()

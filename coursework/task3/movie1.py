@@ -19,9 +19,10 @@ class Movie:
 
     def _print(self): 
         if self.rating and self.decade:
-            output = "%s|%%s|%s|%s" % (self.decade, self.title, self.rating)  # notice the %%
             for genre in self.genres.split(","):
-                print(output % genre)
+                # the repeated format could be removed to outside the loop
+                # but that led to problems with movies that had "%" in their name
+                print("%s|%s|%s|%s" % (self.decade, genre, self.title, self.rating))
         else:
             self._print_combiner()
     
