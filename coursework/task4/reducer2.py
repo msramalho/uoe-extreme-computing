@@ -5,5 +5,5 @@ import sys
 counter = 1
 for line in sys.stdin:
     if counter > 10: continue
-    print(line.strip().split("|")[1])
+    print(line.strip().strip("|"))
     counter+=1

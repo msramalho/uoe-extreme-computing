@@ -7,52 +7,33 @@ INPUT1_2=$INPUT_LOCATION/imdb/title.ratings.tsv
 INPUT1_3=$INPUT_LOCATION/imdb/title.crew.tsv
 OUTPUT_1=/user/$USER/assignment/$TASK\_job1/
 
-# hdfs dfs -cat /user/$USER/data/output/task4_job1/*
-# hdfs dfs -cat /user/$USER/data/output/task4_job1/* | grep "tt0416960"
-
-# hdfs dfs -rm -r $OUTPUT_1
+hdfs dfs -rm -r $OUTPUT_1
 
 # sort -t'|' -k1,2 -k3 
 # This job will sort using 3 cols and partition
-# hadoop jar /opt/hadoop/hadoop-2.9.2/share/hadoop/tools/lib/hadoop-streaming-2.9.2.jar \
-# -D mapred.job.name="Miguel's $TASK job 1/2- s2004624" \
-# -D mapreduce.job.output.key.comparator.class=org.apache.hadoop.mapreduce.lib.partition.KeyFieldBasedComparator \
-# -D stream.map.output.field.separator="|" \
-# -D stream.reduce.input.field.separator="|" \
-# -D mapreduce.map.output.key.field.separator='|' \
-# -D stream.num.map.output.key.fields=3 \
-# -D mapreduce.partition.keypartitioner.options=-k1,1 \
-# -D mapreduce.partition.keycomparator.options="-k1,1 -k2,2 -k3,3" \
-# -files ./mapper1.py,./reducer1.py \
-# -partitioner org.apache.hadoop.mapred.lib.KeyFieldBasedPartitioner \
-# -input $INPUT1_1 \
-# -input $INPUT1_2 \
-# -input $INPUT1_3 \
-# -output $OUTPUT_1 \
-# -mapper mapper1.py \
-# -reducer reducer1.py
+hadoop jar /opt/hadoop/hadoop-2.9.2/share/hadoop/tools/lib/hadoop-streaming-2.9.2.jar \
+-D mapred.job.name="Miguel's $TASK job 1/2- s2004624" \
+-D mapreduce.job.output.key.comparator.class=org.apache.hadoop.mapreduce.lib.partition.KeyFieldBasedComparator \
+-D stream.map.output.field.separator="|" \
+-D stream.reduce.input.field.separator="|" \
+-D mapreduce.map.output.key.field.separator='|' \
+-D stream.num.map.output.key.fields=3 \
+-D mapreduce.partition.keypartitioner.options=-k1,1 \
+-D mapreduce.partition.keycomparator.options="-k1,1 -k2,2 -k3,3" \
+-files ./mapper1.py,./reducer1.py,./combiner.py,./movie.py \
+-partitioner org.apache.hadoop.mapred.lib.KeyFieldBasedPartitioner \
+-input $INPUT1_1 \
+-input $INPUT1_2 \
+-input $INPUT1_3 \
+-output $OUTPUT_1 \
+-mapper mapper1.py \
+-combiner combiner.py \
+-reducer reducer1.py
 
 
-# -D mapred.reduce.tasks=10 \
 
-# -D num.key.fields.for.partition=3 \
-# -D mapred.text.key.partitioner.options=-k1,3 \
-	# -D mapreduce.partition.keypartitioner.options=-k1,1 \
-	# -D mapreduce.partition.keycomparator.options="-k1,1 -k2,2 -k3,3" \
-	# -D mapreduce.partition.keycomparator.options="-k1,3" \
-
-# -D map.output.key.field.separator="|" \
-# -D num.key.fields.for.partition=1 \
-# -D mapreduce.partition.keycomparator.options=-k1,2 \
-# -D mapreduce.partition.keypartitioner.options=-k3 \
-
-echo "DONE Job 1/2, here is the output:"
-
+# echo "DONE Job 1/2, here is the output:"
 # hdfs dfs -cat $OUTPUT_1/*
-
-# exit
-# sleep 5
-
 echo "-----DONE Job 1/2-----"
 
 # Job 2/2
@@ -74,10 +55,9 @@ hadoop jar /opt/hadoop/hadoop-2.9.2/share/hadoop/tools/lib/hadoop-streaming-2.9.
 -input $OUTPUT_1 \
 -output $OUTPUT_2 \
 -mapper mapper2.py \
+-combiner reducer2.py \
 -reducer reducer2.py
 
 echo "DONE Job 2/2, here is the output:"
-
 hdfs dfs -cat $OUTPUT_2/*
-
 echo "-----DONE Job 2/2-----"

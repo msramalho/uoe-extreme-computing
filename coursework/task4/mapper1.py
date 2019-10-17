@@ -1,5 +1,12 @@
 #!/usr/bin/python2.7
 
+"""
+Output:                                 Input:
+    movieId|A|votes                     title.ratings.tsv
+    movieId|B|personId|personName       name.basics.tsv
+    movieId|B|writerId                  title.crew.tsv
+"""
+
 import sys
 from collections import namedtuple
 
