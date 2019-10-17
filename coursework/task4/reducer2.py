@@ -2,8 +2,8 @@
 
 import sys
 
-counter = 0
+counter = 1
 for line in sys.stdin:
-    if counter >= 10: break
-    print(line.strip())
+    if counter > 10: continue
+    print(line.strip().split("|")[1])
     counter+=1

@@ -20,7 +20,7 @@ def _print(output):
 # ratings.tsv related code
 def map_ratings(fields):
     # no filtering required, just output id|A|votes -> A will be used for secondary sorting
-    yield "%s|A|%s|" % (fields[0], fields[2])
+    yield "%s|A|%s" % (fields[0], fields[2])
 
 
 # name.basics.tsv related code
@@ -38,7 +38,7 @@ def map_crew(fields):
     c = Crew(*fields)
     if validate(c, ["writers"]):
         for writer in c.writers.split(","):
-            yield "%s|B|%s|" % (c.movie_id, writer) # B for sorting after A
+            yield "%s|B|%s" % (c.movie_id, writer) # B for sorting after A
 
 
 # main code

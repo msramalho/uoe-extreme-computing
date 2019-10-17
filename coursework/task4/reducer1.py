@@ -23,9 +23,9 @@ class Movie:
         self.name = name
 
     def update(self, fields):
-        if fields[-1] == "":  # crew file
+        if len(fields) == 3:            # crew file
             self.writer = fields[2]
-        else:  # names file len = 4
+        else:                           # names file, len=4
             self.known_for = fields[2]
             self.name = fields[3]
 
@@ -38,7 +38,7 @@ class Movie:
 m = Movie()
 for line in sys.stdin:
     # print("-----------" + line.strip())
-    fields = line.strip().split("|")
+    fields = line.strip().strip("|").split("|")
     if fields[0] == m.id:   # same movie
         m.update(fields)
         m._print()
