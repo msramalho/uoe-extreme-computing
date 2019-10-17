@@ -5,10 +5,10 @@ cat ../data/small/imdb/name.basics.tsv ../data/small/imdb/title.ratings.tsv ../d
 ./reducer1.py | shuf | \
 ./mapper2.py | sort -r -t '|' -g -k1,2 | \
 ./reducer2.py | \
-./reducer2.py > result.txt
-# ./reducer2.py
+./reducer2.py
+# ./reducer2.py > result.txt
 
-# exit 
+exit 
 
 cat ../data/samples/task4/part-* | awk '{$1=$1};1'| sort -r -t '|' -k1,2 -g | head -n 10 > test.txt
 
