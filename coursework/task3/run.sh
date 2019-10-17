@@ -4,7 +4,7 @@ TASK=task3
 INPUT_LOCATION=/data/large
 INPUT1_1=$INPUT_LOCATION/imdb/title.basics.tsv
 INPUT1_2=$INPUT_LOCATION/imdb/title.ratings.tsv
-OUTPUT_1=/user/$USER/data/output/$TASK\_job1/
+OUTPUT_1=/user/$USER/assignment/$TASK\_job1
 
 hdfs dfs -rm -r $OUTPUT_1
 
@@ -28,7 +28,7 @@ echo "-----DONE Job 1/2-----"
 
 # Job 2/2
 
-OUTPUT_2=/user/$USER/data/output/$TASK/
+OUTPUT_2=/user/$USER/assignment/$TASK
 hdfs dfs -rm -r $OUTPUT_2
 
 hadoop jar /opt/hadoop/hadoop-2.9.2/share/hadoop/tools/lib/hadoop-streaming-2.9.2.jar \
