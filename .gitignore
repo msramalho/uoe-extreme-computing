@@ -1,4 +1,4 @@
-coursework/data/large
+coursework/data/large/*.tsv
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
