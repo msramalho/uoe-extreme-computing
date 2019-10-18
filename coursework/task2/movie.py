@@ -20,21 +20,20 @@ class Movie:
         # print title if valid and all filters have been checked
         if self.id and self.filter1 and self.filter2:
             print(self.title)
-        else:
+        else: # if this was not printed, only re-emit if combiner
             self._print_combiner()
 
-    def _print_combiner(self):
-        pass
+    def _print_combiner(self): pass
 
     def parse_line(self, line):
         parts = line.strip().strip("|").split("|", 1)
-        if len(parts) == 1:  # combiner output
+        if len(parts) == 1:     # combiner output
             print(parts[0])
-        else:               # mapper output
+        else:                   # mapper output
             id, value = parts
-            if self.id == id:  # same key
+            if self.id == id:   # same key
                 self.update_filter(value)
-            else:
+            else:               # new key
                 self._print()
                 self.__init__(id)
                 self.update_filter(value)

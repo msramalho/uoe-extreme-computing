@@ -2,7 +2,7 @@
 
 """
 Output: 
-    [Title]
+Title
 """
 import sys
 sys.path.append('./')
@@ -11,5 +11,5 @@ from movie import Movie
 movie = Movie()
 for line in sys.stdin:
     movie.parse_line(line)
-else:  # finally, print the last movie
+else:
     movie._print()

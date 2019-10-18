@@ -7,9 +7,17 @@ Output:
 """
 
 import sys
+from collections import namedtuple
 
 DATA_DELIMITER = '\t'
 SKIP_VAL = "\\N"
+
+Movie = namedtuple('Movie', 'id type title original adult release end duration genres')
+
+
+def validate(named_tuple, properties):
+    # for each of the provided properties, guarantee that none is SKIP_VAL
+    return all(getattr(named_tuple, p) != SKIP_VAL for p in properties)
 
 
 def _print(output):
@@ -21,11 +29,11 @@ def map_basics(fields):
     # in case this is a line from the title.basics.tsv file
     # it should be filtered on release year
     # the output starts with "B" so that the reducer can differentiate
-    title_type, title, release = fields[1], fields[2], fields[5]
-    if title_type == "movie" and release != SKIP_VAL and title != SKIP_VAL:
-        release = int(release)
+    m = Movie(*fields)                                      # cast to namedtuple
+    if m.type == "movie" and validate(m, ["release", "title"]):
+        release = int(m.release)
         if 1990 <= release and release <= 2018:
-            return "%s|A%s" % (fields[0], title)
+            return "%s|A%s" % (m.id, m.title)
 
 
 def map_ratings(fields):
