@@ -30,8 +30,7 @@ class Movie:
     def parse_line(self, line):
         fields = line.strip().strip("|").split("|")
         if len(fields) == 2:
-            # print("%s|%s" % (fields[0], fields[1]))  # re-emit from combiner
-            pass
+            print("%s|%s" % (fields[0], fields[1]))  # re-emit from combiner
         elif fields[1] == "A":                      # skip if A is not seen before changing key
             self._print_combiner_a()
             self._print()

@@ -11,7 +11,6 @@ votes|Name                              for writers AND knownFor in the same mov
 """
 
 import sys
-from collections import namedtuple
 sys.path.append('./')
 from movie import Movie
 

@@ -26,18 +26,12 @@ hadoop jar /opt/hadoop/hadoop-2.9.2/share/hadoop/tools/lib/hadoop-streaming-2.9.
 -input $INPUT1_3 \
 -output $OUTPUT_1 \
 -mapper mapper1.py \
+-combiner combiner.py \
 -reducer reducer1.py
-# -combiner combiner.py
-
-# Se estiver vazio, algo deve estar errado...........
-# -D mapred.map.tasks=3 \
-
 
 echo "DONE Job 1/2, here is the output:"
 # hdfs dfs -cat $OUTPUT_1/*
 echo "-----DONE Job 1/2-----"
-
-# exit
 
 # Job 2/2
 OUTPUT_2=/user/$USER/assignment/$TASK
@@ -53,11 +47,11 @@ hadoop jar /opt/hadoop/hadoop-2.9.2/share/hadoop/tools/lib/hadoop-streaming-2.9.
 -D mapreduce.partition.keypartitioner.options=-k1,1 \
 -D mapreduce.partition.keycomparator.options=-k1,1rn \
 -D mapred.reduce.tasks=1 \
--files ./mapper2.py,./reducer2.py \
+-files ./reducer2.py \
 -partitioner org.apache.hadoop.mapred.lib.KeyFieldBasedPartitioner \
 -input $OUTPUT_1 \
 -output $OUTPUT_2 \
--mapper mapper2.py \
+-mapper cat \
 -combiner reducer2.py \
 -reducer reducer2.py
 

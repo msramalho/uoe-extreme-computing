@@ -60,6 +60,3 @@ def map_function(line):
 for line in sys.stdin:
     for out in map_function(line):
         _print(out)
-
-# TODO: mapper could remember the 10 most voted an pass only those larger than or equal to those
-# could keep list with 11, update last and resort, to keep the 10best with O(1)
