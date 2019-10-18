@@ -16,6 +16,7 @@ from movie import Movie
 
 class MovieCombiner(Movie):
     def _print_combiner(self):
+        # method called in case _print is unsuccessful, meaning the map outputs should be re-emitted
         if self.id:         # print as mapper would
             if self.title:  # aka filter1
                 print("%s|A%s" % (self.id, self.title))

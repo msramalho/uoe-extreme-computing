@@ -1,7 +1,7 @@
 #!/usr/bin/python2.7
 
 """
-Output:                 FROM
+Output:                 From:
 genre|duration          title.basics.tsv
 """
 import sys

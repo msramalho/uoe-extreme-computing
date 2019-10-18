@@ -1,7 +1,7 @@
 #!/usr/bin/python2.7
 
 """
-Output: 
+Output:                 From:
     id|A[Title]         title.basics.tsv
     id|B                title.ratings.tsv
 """
