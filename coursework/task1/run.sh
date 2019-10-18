@@ -1,7 +1,7 @@
 TASK=task1
 INPUT_LOCATION=/data/large
+# INPUT_LOCATION=/data/small
 INPUT1=$INPUT_LOCATION/imdb/title.basics.tsv
-# INPUT1=$INPUT_LOCATION/imdb/title.basics.tsv
 OUTPUT_DIR=/user/$USER/assignment/$TASK
 SEP="|"
 
@@ -19,8 +19,8 @@ hadoop jar /opt/hadoop/hadoop-2.9.2/share/hadoop/tools/lib/hadoop-streaming-2.9.
 -combiner combiner.py \
 -reducer reducer.py
 
-echo "DONE, here is the output:"
+echo "DONE, here is the output (sorted):"
 
-hdfs dfs -cat $OUTPUT_DIR/* | sort -t '|' -k4,4
+hdfs dfs -cat $OUTPUT_DIR/* | sort -t $SEP -k4,4
 
 echo "-----DONE-----"

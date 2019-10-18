@@ -26,18 +26,18 @@ hadoop jar /opt/hadoop/hadoop-2.9.2/share/hadoop/tools/lib/hadoop-streaming-2.9.
 -input $INPUT1_3 \
 -output $OUTPUT_1 \
 -mapper mapper1.py \
--combiner combiner.py
-# -reducer reducer1.py
+-reducer reducer1.py
+# -combiner combiner.py
 
 # Se estiver vazio, algo deve estar errado...........
 # -D mapred.map.tasks=3 \
 
 
 echo "DONE Job 1/2, here is the output:"
-hdfs dfs -cat $OUTPUT_1/*
+# hdfs dfs -cat $OUTPUT_1/*
 echo "-----DONE Job 1/2-----"
 
-exit
+# exit
 
 # Job 2/2
 OUTPUT_2=/user/$USER/assignment/$TASK
