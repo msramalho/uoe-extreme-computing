@@ -18,5 +18,5 @@ class StatisticsCombiner(Statistics):
 stats = StatisticsCombiner()  # create the O(1) space management object
 for line in sys.stdin:
     stats.parse_line(line)
-else:
+else: # finally, print the last entry
     stats._print()

@@ -12,12 +12,12 @@ LIST_DELIMITER = ","
 SKIP_VAL = "\\N"
 
 
+Movie = namedtuple('Movie', 'id type title original adult release end duration genres')
+
+
 def validate(named_tuple, properties):
     # for each of the provided properties, guarantee that none is SKIP_VAL
     return all(getattr(named_tuple, p) != SKIP_VAL for p in properties)
-
-
-Movie = namedtuple('Movie', 'id type title original adult release end duration genres')
 
 
 def map_function(line):
