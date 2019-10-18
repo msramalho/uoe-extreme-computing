@@ -1,14 +1,21 @@
 #!/usr/bin/python2.7
 
+"""
+Output (reduced):
+decade|genre|title|rating
+
+Output (re-emitted):
+id|rating
+id|decade|genre|title
+"""
 import sys
-from collections import namedtuple
 sys.path.append('./')
 from movie1 import Movie
 
 
 class MovieCombiner(Movie):
     def _print_combiner(self):
-        # method call in case _print is unsuccessful, meaning the map outputs should be re-emitted
+        # method called in case _print is unsuccessful, meaning the map outputs should be re-emitted
         if self.rating:  # only has id|rating
             print("%s|%s" % (self.id, self.rating))
         elif self.genres:  # has id|decade|genres|title

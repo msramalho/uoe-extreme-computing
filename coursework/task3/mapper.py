@@ -1,10 +1,18 @@
 #!/usr/bin/python2.7
 
+"""
+Output:                     From:
+id|rating                   title.ratings.tsv
+id|decade|genre|title       title.basics.tsv
+"""
 import sys
 from collections import namedtuple
 
 DATA_DELIMITER = '\t'
 SKIP_VAL = "\\N"
+
+
+Movie = namedtuple('Movie', 'id type title original adult release end duration genres')
 
 
 def validate(named_tuple, properties):
@@ -17,11 +25,7 @@ def _print(output):
     if output != None: print(output)
 
 
-# basics.tsv related code
-Movie = namedtuple('Movie', 'id type title original adult release end duration genres')
-
-
-def map_basics(fields):
+def map_titles(fields):
     # basics.tsv input should send id|decade|genres|title
     # could emit one tuple per genre, but that would be a waste of resources
     # since that is only needed for the next MapReduce Job
@@ -43,7 +47,7 @@ def map_ratings(fields):
 def map_function(line):
     # split line and return according to input type (basics, ratings)
     fields = line.strip().split(DATA_DELIMITER)
-    return map_basics(fields) if len(fields) == 9 else map_ratings(fields)
+    return map_titles(fields) if len(fields) == 9 else map_ratings(fields)
 
 
 for line in sys.stdin:

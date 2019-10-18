@@ -29,9 +29,9 @@ class Movie:
 
     def parse_line(self, line):
         fields = line.strip().strip("|").split("|")
-        if self.is_same(fields):  # same decade and genre
+        if self.is_same(fields):        # same decade and genre
             self.update(fields)
-        else:
+        else:                           # new decade or new genre
             self._print()
             self.__init__()
             self.update(fields)

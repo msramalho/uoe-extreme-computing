@@ -1,7 +1,6 @@
 #!/usr/bin/python2.7
 
 import sys
-from collections import namedtuple
 sys.path.append('./')
 from movie2 import Movie
 

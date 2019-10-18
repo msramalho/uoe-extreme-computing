@@ -1,7 +1,11 @@
 #!/usr/bin/python2.7
 
+"""
+Output:
+decade|genre|title|rating
+"""
+
 import sys
-from collections import namedtuple
 sys.path.append('./')
 from movie1 import Movie
 
