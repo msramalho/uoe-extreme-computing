@@ -1,13 +1,8 @@
 #!/usr/bin/python2.7
 
 """
-Input (sorted on first 3 columns)       FROM
-movieId|A|votes                         name.basics.tsv
-movieId|B|personId|Name                 name.basics.tsv
-movieId|B|personId                      title.crew.tsv
-
 Output:
-votes|Name                              for writers AND knownFor in the same movieId
+writerId|movieIds|votes
 """
 
 import sys
