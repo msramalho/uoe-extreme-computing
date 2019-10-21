@@ -4,7 +4,7 @@ TASK=task$1
 USER=s2004624
 HOST=$USER@student.ssh.inf.ed.ac.uk
 
-for i in "mapper.py" "mapper1.py" "mapper2.py" "reducer.py" "reducer1.py" "reducer2.py" "run.sh" "statistics.py" "movie.py"  "movie1.py"  "movie2.py" "combiner.py" "combiner1.py" "combiner2.py"
+for i in "mapper.py" "mapper1.py" "mapper2.py" "reducer.py" "reducer1.py" "reducer2.py" "run.sh" "statistics.py" "movie.py"  "movie1.py"  "movie2.py" "combiner.py" "combiner1.py" "combiner2.py" "writer.py"
 do
    FILE=$TASK/$i 
    if [ ! -f $FILE ]; then

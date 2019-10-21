@@ -18,6 +18,10 @@ class Movie:
         if self.votes and self.writers:
             print("%s|%s|%s" % (self.id, self.writers, self.votes))
             self.__init__(self.id)
+            
+
+    def _print_combiner(self):
+        pass
 
     def parse_line(self, line):
         fields = line.strip().strip("|").split("|")
@@ -28,5 +32,6 @@ class Movie:
                 self.update(fields)
                 self._print()
             else:
+                self._print_combiner()
                 self.__init__(fields[0])
                 self.update(fields)
