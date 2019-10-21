@@ -7,10 +7,9 @@ cat ../data/small/imdb/title.ratings.tsv ../data/small/imdb/title.crew.tsv | shu
 cat temp.txt ../data/small/imdb/name.basics.tsv | shuf | \
 ./mapper2.py | shuf | \
 ./combiner2.py | sort -t '|' -g -k1,2 | \
-./reducer2.py
-# ./reducer2.py > result.txt
+./reducer2.py > result.txt
+# ./reducer2.py
 
-exit
 rm temp.txt
 
 cat ../data/samples/task4/part-* | awk '{$1=$1};1'| sort -r -t '|' -k1,2 -g | head -n 10 > test.txt
