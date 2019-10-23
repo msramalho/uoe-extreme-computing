@@ -1,9 +1,9 @@
 #!/usr/bin/python2.7
 
 import sys
+sys.path.append('./')
+from writer import Writer
 
-counter = 1
-for line in sys.stdin:
-    if counter > 10: continue
-    print(line.strip().strip("|"))
-    counter+=1
+w = Writer()
+for line in sys.stdin: w.parse_line(line)
+w._print_result()

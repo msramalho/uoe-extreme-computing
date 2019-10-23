@@ -1,59 +1,52 @@
-TASK=task4
+TASK=task4_late
+INPUT_LOCATION=/data/large
 
 # Job 1/2
-INPUT_LOCATION=/data/large
-INPUT1_1=$INPUT_LOCATION/imdb/name.basics.tsv
-INPUT1_2=$INPUT_LOCATION/imdb/title.ratings.tsv
-INPUT1_3=$INPUT_LOCATION/imdb/title.crew.tsv
+INPUT1_1=$INPUT_LOCATION/imdb/title.ratings.tsv
+INPUT1_2=$INPUT_LOCATION/imdb/title.crew.tsv
 OUTPUT_1=/user/$USER/assignment/$TASK\_job1/
 
 hdfs dfs -rm -r $OUTPUT_1
 
-# This job will sort using 3 cols and partition
 hadoop jar /opt/hadoop/hadoop-2.9.2/share/hadoop/tools/lib/hadoop-streaming-2.9.2.jar \
 -D mapred.job.name="Miguel's $TASK job 1/2- s2004624" \
 -D mapreduce.job.output.key.comparator.class=org.apache.hadoop.mapreduce.lib.partition.KeyFieldBasedComparator \
 -D stream.map.output.field.separator="|" \
 -D stream.reduce.input.field.separator="|" \
 -D mapreduce.map.output.key.field.separator='|' \
--D stream.num.map.output.key.fields=3 \
--D mapreduce.partition.keypartitioner.options=-k1,1 \
--D mapreduce.partition.keycomparator.options="-k1,1 -k2,2 -k3,3" \
--files ./mapper1.py,./reducer1.py,./combiner.py,./movie.py \
--partitioner org.apache.hadoop.mapred.lib.KeyFieldBasedPartitioner \
+-D stream.num.map.output.key.fields=1 \
+-files ./mapper1.py,./reducer1.py,./movie.py,./combiner1.py \
 -input $INPUT1_1 \
 -input $INPUT1_2 \
--input $INPUT1_3 \
 -output $OUTPUT_1 \
 -mapper mapper1.py \
--combiner combiner.py \
+-combiner combiner1.py \
 -reducer reducer1.py
 
-echo "DONE Job 1/2, here is the output:"
+# echo "DONE Job 1/2, here is the output:"
 # hdfs dfs -cat $OUTPUT_1/*
 echo "-----DONE Job 1/2-----"
 
 # Job 2/2
+INPUT2_1=$INPUT_LOCATION/imdb/name.basics.tsv
 OUTPUT_2=/user/$USER/assignment/$TASK
 hdfs dfs -rm -r $OUTPUT_2 
 
-# sorting by name even though not in assignment
 hadoop jar /opt/hadoop/hadoop-2.9.2/share/hadoop/tools/lib/hadoop-streaming-2.9.2.jar \
 -D mapred.job.name="Miguel's $TASK job 2/2- s2004624" \
--D mapreduce.job.output.key.comparator.class=org.apache.hadoop.mapreduce.lib.partition.KeyFieldBasedComparator \
 -D stream.map.output.field.separator="|" \
 -D stream.reduce.input.field.separator="|" \
+-D mapreduce.map.output.key.field.separator='|' \
 -D stream.num.map.output.key.fields=2 \
--D mapreduce.partition.keypartitioner.options=-k1,1 \
--D mapreduce.partition.keycomparator.options=-k1,1rn \
 -D mapred.reduce.tasks=1 \
--files ./reducer2.py \
--partitioner org.apache.hadoop.mapred.lib.KeyFieldBasedPartitioner \
+-files ./reducer2.py,./mapper2.py,./writer.py,./combiner2.py \
+-input $INPUT2_1 \
 -input $OUTPUT_1 \
 -output $OUTPUT_2 \
--mapper cat \
--combiner reducer2.py \
+-mapper mapper2.py \
+-combiner combiner2.py \
 -reducer reducer2.py
+# -reducer reducer2.py
 
 echo "DONE Job 2/2, here is the output:"
 hdfs dfs -cat $OUTPUT_2/*
