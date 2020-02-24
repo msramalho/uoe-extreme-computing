@@ -1,7 +1,7 @@
 <h1 align="center">
   UOE Extreme Computing
 </h1>
-No, no coding under freezing temperatures, it's more like advanced distributed systems. 
+No, no coding under freezing temperatures, it's more like advanced distributed systems @ University of Edinburgh. 
 
 # Coursework
 Implement 4 increasingly difficult Map-Reduce tasks to run on Hadoop and using HDFS, [source here](https://github.com/msramalho/uoe-extreme-computing/tree/master/coursework). 
